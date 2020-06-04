@@ -78,4 +78,5 @@ After all, we just use the library, it is thus not 'defived work' or so ... IMHO
 ## Cross-platform 'daemon' implementation
 
 There is some fundamental differences in how `daemons` are constructed in Linux/Windows/MacOS ...
+
 Maybe [daemoniker](https://daemoniker.readthedocs.io/en/latest/) (or similar) can help there, but for the moment (proof of concept) we'll limit ourselves to Linux, and use 'well-behaved' daemons according to Stevens.
