@@ -68,3 +68,7 @@ by the `spyder-kernelsd`.
   4. The `hostname` above is usefull, but now always meaningfull (think server farms) it is probably a good idea that in the `spyder-kernelsd.conf` file there is also a 'pretty host name' like : `John's Raspberry Pi` or `Tom's MiniSCT` 🤓
   5. Also the `guest` account thingy probably lives in `spyder-kernelsd.conf`
   6. os independent 'daemon library' ... woops ... need more elaboration here!
+
+## Licensing
+
+We relay on the `noarch` [zeroconf](https://github.com/jstasiak/python-zeroconf) package which is licensed under [LGPLv2.1](https://github.com/jstasiak/python-zeroconf/blob/master/COPYING). Given the fact that I had in mind to conform to `spyder-ide` licencing philosophy, thus choose `MIT` I am not sure if this would be a problem. (after all, we just juse the library, it is thus not 'defived work' or so ... Someone with more knowledge should have a look at the situation.
