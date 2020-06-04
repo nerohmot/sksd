@@ -74,3 +74,8 @@ by the `spyder-kernelsd`.
 We relay on the `noarch` [zeroconf](https://github.com/jstasiak/python-zeroconf) package which is licensed under [LGPLv2.1](https://github.com/jstasiak/python-zeroconf/blob/master/COPYING). Given the fact that I had in mind to conform to `spyder-ide` licencing philosophy, thus choose `MIT` I am not sure if this would be a problem or not ...
 
 After all, we just use the library, it is thus not 'defived work' or so ... IMHO there is no problem, but someone with more knowledge should maybe have a look at the situation before release.
+
+## cross platform 'daemon' implementation
+
+There is some fundamental differences in how `daemons` are constructed in Linux/Windows/MacOS ...
+Maybe [daemoniker](https://daemoniker.readthedocs.io/en/latest/) (or similar) can help there, but for the moment (proof of concept) we'll limit ourselves to Linux, and use 'well-behaved' daemons according to Stevens.
