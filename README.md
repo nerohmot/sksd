@@ -1,5 +1,5 @@
 # sksd
-**S**pyder **K**ernel **S**pinner **D**aemon
+<ins>**S**</ins>pyder **K**ernel **S**pinner **D**aemon
 
 
 # Preample
