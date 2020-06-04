@@ -5,10 +5,8 @@
 # Preample
 
 Up to now there is some 'buttox pains' when it comes to:
-  1. **detecting what 'machines' are available in your network**
-    This is prior to 'connecting' to them, and currently not available.
-  2. **connecting to remote spyder-kernels:**
-    This is very manual, actually almost un-usable.
+  1. **detecting what 'machines' are available in your network**, this is prior to 'connecting' to them, and currently not available.
+  2. **connecting to remote spyder-kernels**, this is available, but it is very manual. (actually almost un-usable).
   3. **environment(s):**
     If ther is any, they are not 'controlled' from `Spyder` or better yet : the application you are coding for!
 
