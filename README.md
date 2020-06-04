@@ -67,10 +67,29 @@ by the `spyder-kernelsd`.
   3. Above I didn't talk about the `password` for user `john`, but it is obvious we need then to obtain an encription key to exchange the password (that itself probably comes straight from the [keyring](https://github.com/jaraco/keyring)) ... probably something like [TLS 1.3](https://tools.ietf.org/pdf/rfc8446.pdf#page=96) 😈 python standard [ssl](https://docs.python.org/3/library/ssl.html) library already has this implemented. And, oh, yes, the certificate (or rather the pointer to the CA) will probably live in the `spyder-kernelsd.conf` file. 😎
   4. The `hostname` above is usefull, but now always meaningfull (think server farms) it is probably a good idea that in the `spyder-kernelsd.conf` file there is also a 'pretty host name' like : `John's Raspberry Pi` or `Tom's MiniSCT` 🤓
   5. Also the `guest` account thingy probably lives in `spyder-kernelsd.conf`
-  6. os independent 'daemon library' ... woops ... need more elaboration here!
 
 ## Licensing
 
 We relay on the `noarch` [zeroconf](https://github.com/jstasiak/python-zeroconf) package which is licensed under [LGPLv2.1](https://github.com/jstasiak/python-zeroconf/blob/master/COPYING). Given the fact that I had in mind to conform to `spyder-ide` licencing philosophy, thus choose `MIT` I am not sure if this would be a problem or not ...
 
 After all, we just use the library, it is thus not 'defived work' or so ... IMHO there is no problem, but someone with more knowledge should maybe have a look at the situation before release.
+
+## Cross-platform 'daemon' implementation
+
+There is some fundamental differences in how `daemons` are constructed in Linux/Windows/MacOS ...
+
+Maybe [daemoniker](https://daemoniker.readthedocs.io/en/latest/) (or similar) can help there, but for the moment (proof of concept) we'll limit ourselves to Linux, and use 'well-behaved' daemons according to Stevens.
+
+## Dependencies and their implications
+
+  * Old situation:
+    Spyder ➜ spyder-kernels
+  
+  * New situation:
+    Spyder
+    sksd ➜ spyder-kernels
+
+... needs to be worked out better ...
+
+## Conda environments
+
