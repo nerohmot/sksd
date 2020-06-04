@@ -1,15 +1,15 @@
 # sksd
-Spyder Kernel Spinner Daemon
+**S**pyder **K**ernel **S**pinner **D**aemon
 
 
 # Preample
 
 Up to now there is some 'buttox pains' when it comes to:
-  * **detecting what 'machines' are available in your network to work on:**
+  1. **detecting what 'machines' are available in your network**
     This is prior to 'connecting' to them, and currently not available.
-  * **connecting to remote spyder-kernels:**
+  2. **connecting to remote spyder-kernels:**
     This is very manual, actually almost un-usable.
-  * **environment(s):**
+  3. **environment(s):**
     If ther is any, they are not 'controlled' from `Spyder` or better yet : the application you are coding for!
 
 This initial proposal tries to solve thes issues transparantly both remote **and local!** (see notes at end)
