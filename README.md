@@ -5,24 +5,30 @@
 # Preample
 
 Up to now there is some 'buttox pains' when it comes to:
-  1. **detecting what 'machines' are available in your network**, this is prior to 'connecting' to them, and currently not available.
-  2. **connecting to remote spyder-kernels**, this is available, but it is very manual. (actually almost un-usable).
-  3. **environment(s):**
-    If ther is any, they are not 'controlled' from `Spyder` or better yet : the application you are coding for!
+  1. **Detecting what 'machines' are available in your network**, this is prior to 'connecting' to them, and currently not available.
+  2. **Connecting to remote spyder-kernels**, this is available, but it is very manual. (actually almost un-usable).
+  3. **Environment(s)** ... If ther is any, they are not 'controlled' from `Spyder`. (Or better yet : the application you are coding for!)
 
 This initial proposal tries to solve thes issues transparantly both remote **and local!** (see notes at end)
 
 # Description (Proposal)
 
-
-
 The `sksd` uses [zeroconf](https://github.com/jstasiak/python-zeroconf) to announce it's presence to the zeroconf network.
-[Spyder](https://github.com/spyder-ide/spyder) can 'talk' directly with `sksd` to spin up a `spyder-kernel` as a `user` in a specific `conda environment`, and pass the needed 'credentials' back to `spyder` so `spyder` can connect auto-magically to both (local and) remote kernels.
 
+[Spyder](https://github.com/spyder-ide/spyder) can now easily 'discover' what machines are available (including the local machine)! 
 
-Let's say the `spyder-kernels` package includes also `skd`, indeed, a **daemon**.
-(let's for now disregard the technical implementation on various OS-es)
-This daemon, on startup will collect:
+`Spyder` then 'contact' the desired `sksd` and ask him to spin up a `spyder-kernel` as a `user` in a specific `conda environment`, and pass the needed 'credentials' back to `spyder` so `spyder` can connect auto-magically connect to the spinned spyder-kernel.
+
+## installation
+https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/admin-multi-user-install.html
+
+## modus operandi
+
+### sksd
+
+### Spyder
+
+This `sksd`, on startup will collect:
 
   *
   * [A free port](https://github.com/nerohmot/spyder-kernels/blob/nerohmot/proposal/publish.py#L25) (so no need for 'well known ports' shit)
@@ -61,3 +67,4 @@ by the `spyder-kernelsd`.
   3. Above I didn't talk about the `password` for user `john`, but it is obvious we need then to obtain an encription key to exchange the password (that itself probably comes straight from the [keyring](https://github.com/jaraco/keyring)) ... probably something like [TLS 1.3](https://tools.ietf.org/pdf/rfc8446.pdf#page=96) 😈 python standard [ssl](https://docs.python.org/3/library/ssl.html) library already has this implemented. And, oh, yes, the certificate (or rather the pointer to the CA) will probably live in the `spyder-kernelsd.conf` file. 😎
   4. The `hostname` above is usefull, but now always meaningfull (think server farms) it is probably a good idea that in the `spyder-kernelsd.conf` file there is also a 'pretty host name' like : `John's Raspberry Pi` or `Tom's MiniSCT` 🤓
   5. Also the `guest` account thingy probably lives in `spyder-kernelsd.conf`
+  6. os independent 'daemon library' ... woops ... need more elaboration here!
