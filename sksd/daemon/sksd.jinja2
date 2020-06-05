@@ -24,11 +24,7 @@
 #  * if `enable` is supplied, it is presumed turned off!
 #  * if `enable` can not be interpreted, it is presumed turned off!
 #
-# Type = boolean
-#
-# Default = False
-#
-enable = sure
+enable = {{ config['DEFAULT']['enable'] }}
 
 ##############################################################################
 # The `name` is the 'pretty print' (host)name that will be published.
@@ -39,23 +35,7 @@ enable = sure
 # Notes:
 #  * if no service `name` is provided, the service will not start!
 #
-# Type = (unicode) string
-#
-# Default = ""
-#
-name = "Gonzalo Peña-Castellanos' RPI"
-
-##############################################################################
-# The `description` is the (multi-line) description of the `service`.
-# This is basically for those who are not intimately familiar with the box.
-#
-# Type = list of (unicode) string(s)
-#
-# Default = ""
-#
-description = Raspberry Pi
-Model 4b
-Ubuntu 20.04
+name = {{ config['DEFAULT']['name'] }}
 
 ##############################################################################
 # The `guest_account` keyword determines as what `user` the sksd
@@ -65,18 +45,12 @@ Ubuntu 20.04
 # valid credentials for this host system.
 #
 # Notes:
-#  * a `guest_account` can hold a "user" string, which means that the supplied
-#    user doesn't need a password.
-#  * a `guest_account` can hold a "user:passwd" string, which means that the
-#    supplied user needs a password, and that the password is 'passwd'.
+#  * a `guest_account` should be a `user` that doesn't need a password, **or**
+#    a password that is the same as the `user` !
 #  * if no `guest_account` is proveded (or is empty), the service is **only**
 #    available through the normal username/password credentials.
 #
-# Type = (unicode) string
-#
-# Default value = ""
-#
-guest_account = "anonymous:anonymous"
+guest_account = {{ config['DEFAULT']['guest_account'] }}
 
 ##############################################################################
 # The `guest_can_manage_environments` keyword determines if a `guest`
@@ -87,11 +61,7 @@ guest_account = "anonymous:anonymous"
 #  * a `user` (guest or not) can in any case not create/modify environments
 #    outside the scope of the user !
 #
-# Type = boolean
-#
-# Default = True
-#
-guest_can_manage_environments = Yup
+guest_can_manage_environments = {{ config['DEFAULT']['guest_can_manage_environments'] }}
 
 ##############################################################################
 # The `max_kernels` keyword determines the maximum number of spyder-kernels
@@ -106,13 +76,11 @@ guest_can_manage_environments = Yup
 #  * AUTO means # CPU cores - 1
 #  * CORES = the number of CPU cores
 #  * simple calculations are possible the result will be casted to integer.
-#    (iow rounded down) eg: (CORES/2)-1 ➜ (8/2)-1 ➜ 3 for a 8 core machine.
+#    eg: (CORES/2)-1 ➜ (8/2)-1 ➜ 3 for a 8 core machine.
 #
-# Type = integer
+# Default value = AUTO
 #
-# Default = 'AUTO' = CORES - 1
-#
-max_kernels = AUTO
+max_kernels = {{ config['DEFAULT']['max_kernels'] }}
 
 ##############################################################################
 # The `exclude_environments` keyword determines what environments will **NOT**
@@ -122,10 +90,8 @@ max_kernels = AUTO
 #  * It **must** be a list
 #  * One can use a wildcard '*' in the list.
 #  * applictaion environments (starting with '_') can also be excluded here.
-#  * If nothing is provided the default is presumed.
+#  * If nothing is provided, the default value is presumed.
 #
-# Type = list of (unicode) strings
+# Default value = ["base", "_*"]
 #
-# Default = ["base", "_*"]
-#
-exclude_environments = ["base", "secret", "my*"]
+exclude_environments = {{ config['DEFAULT']['exclude_environments'] }}

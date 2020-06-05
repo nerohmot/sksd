@@ -22,7 +22,6 @@ import os
 import time
 import atexit
 import signal
-import configparser
 import platform
 
 from configparser import NoOptionError
@@ -38,20 +37,23 @@ class daemon_ABC(ABC):
     """A generic daemon abstract base class for python3 under Linux"""
 
     verbose = True
+    enabled = True
 
-    def __init__(self, confdir):
-        if not os.path.exists(confdir):
-            raise Exception(f"'{confdir}' does not exist (or is not accessable)!")
+    def __init__(self, config_dir):
 
-        name = self.__class__.__name__
+        self.config_dir = config_dir
+
+        self.name = self.__class__.__name__
         if self.verbose:
             print(f"daemon name = '{name}'")
             if platform.system() != "Windows":
                 print(f"euid = '{os.geteuid()}'")  # not for windows !
                 print(f"uid = '{os.getuid()}'")  # not for windows !
 
+        if not os.path.exists(config_dir):
+            raise Exception(f"'{config_dir}' does not exist (or is not accessable)!")
 
-        self.pid_file = os.path.join(confdir, f"{name}.pid")
+        self.pid_file = os.path.join(config_dir, f"{name}.pid")
         if self.verbose:
             print(f"pid-file = '{self.pid_file}'")
         # TODO: if the pid file exists, open it, look what process did write it, and
@@ -69,82 +71,11 @@ class daemon_ABC(ABC):
             if self.verbose:
                 print("Done.")
 
-        self.config_file = os.path.join(confdir, f"{name}.conf")
-        if self.verbose:
-            print(f"config-file = '{self.config_file}'")
-        if not os.path.exists(self.config_file):
-            raise Exception(f"'{self.config_file}' does not exitst!")
 
-        self.config = configparser.ConfigParser()
-        self.DEFAULT = {
-            'enable': False}
-        self.config["DEFAULT"] = self.DEFAULT
-        self.config.BOOLEAN_STATES = {
-            "1": True,
-            "on": True,
-            "On": True,
-            "ON": True,
-            "true": True,
-            "True": True,
-            "TRUE": True,
-            "yes": True,
-            "YES": True,
-            "Yes": True,
-            "y": True,
-            "Y": True,
-            "sure": True,
-            "Sure": True,
-            "SURE": True,
-            "yup" : True,
-            "Yup" : True,
-            "YUP" : True,
-
-            "0": False,
-            "off": False,
-            "Off": False,
-            "OFF": False,
-            "false": False,
-            "False": False,
-            "FALSE": False,
-            "no": False,
-            "No": False,
-            "NO": False,
-            "n": False,
-            "N": False,
-            "nope": False,
-            "Nope": False,
-            "NOPE": False}
-        if self.verbose:
-            print("Reading config file ... ", end="")
-        self.config.read(self.config_file)
-        if self.verbose:
-            print("Done.")
-        self._post_process_config_file()
 
     def __del__(self):
         if os.path.exists(self.pid_file):
             os.remove(self.pid_file)
-
-    def _post_process_config_file(self):
-        """Fix minor flaws in the configuration file, and complain about major ones."""
-
-        if self.verbose:
-            print("post processing the configuration file ...")
-
-        # option : DEFAULT/enable
-        try:
-            self.config.getboolean("DEFAULT", "enable")
-        except ValueError:
-            raise Exception(f"Can not interprete '{self.config['DEFAULT']['enable']}' for the 'DEFAULT/enable' option")
-        else:
-            if self.verbose:
-                print(f"   DEFAULT/enable = {self.config.getboolean('DEFAULT', 'enable')}")
-
-        # option : DEFAULT/
-
-
-
-
 
 
     def daemonize(self):
@@ -244,7 +175,15 @@ class daemon_ABC(ABC):
         self.stop()
         self.start()
 
+    def pre_run(self):
+        """Deamon 'pre_run' business logic comes here."""
+        pass
+
     @abstractmethod
     def run(self):
-        """Deamon business logic comes here"""
+        """Deamon 'run' business logic comes here, (should be an endless loop)."""
+        pass
+
+    def post_run(self):
+        """Deamon 'post_run' (and pre-exit) business logic comes here."""
         pass
