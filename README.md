@@ -25,7 +25,7 @@ conda run -n anaconda python -m spyder_kernels.console
 this way the spyder-kernel runs in the anaconda environment, and connects to the `spyder-console` which is running in the `_spyder_` environment. 😇
 
 **NOTE:**
-> This way solved already a latent issue related to dropping support for python2 in that users with big python2 conde bases 
+> This way we don't loose any users by dropping Python2 support for stpyder itself! Remember, there **wil** solved already a latent issue related to dropping support for python2 in that users with big python2 conde bases 
 
 
 
