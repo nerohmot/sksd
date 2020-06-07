@@ -8,9 +8,9 @@ Up to now there is some 'buttox pains' when it comes to:
 1. **Detecting what 'machines' are available in your network**, this is prior to 'connecting' to them, and currently not available.
 2. **Connecting to remote spyder-kernels**, this is available, but it is very manual. (actually almost un-usable).
 3. **Environment(s)** ... `spyder` runs in the same environmnet as the environment we are coding for. This has the following consequences:
-  a. The app **needs** to conform to the `spyder` requirements. (not the packages themselves, but their restrictions (can) pose a problem)
-  b. The app **needs** to conform to the rest of the environment. (eg `anaconda`, again not the packages but their restrictions make life hard)
-  c. As `spyder` doesn't know up-front what his run-time environement will be, a lot of extra testing needs to be done, which doesn't help the 'time to market', **and** results in further package restrictions.
+  - The app **needs** to conform to the `spyder` requirements. (not the packages themselves, but their restrictions (can) pose a problem)
+  - The app **needs** to conform to the rest of the environment. (eg `anaconda`, again not the packages but their restrictions make life hard)
+  - As `spyder` doesn't know up-front what his run-time environement will be, a lot of extra testing needs to be done, which doesn't help the 'time to market', **and** results in further package restrictions.
   
 The goal of this initial proposal is to solve these issues transparantly!
 
