@@ -48,7 +48,7 @@ So when a box boots, the `sksd` will be brought up automatically. The `sksd` the
 
 A `Spyder` instance can now easily 'discover' what machines are available (including his own machine 😂) by also using this zeroconf library.
 
-`Spyder` then can 'contact' the desired `sksd` ([socket](https://docs.python.org/3/library/socket.html)) and can:
+`Spyder` then can 'contact' the desired `sksd` (over TCP/IP [socket](https://docs.python.org/3/library/socket.html)s) and can:
 
 - Ask him to spin up a `spyder-kernel` as a `user` in a specific `conda environment`, and pass the needed 'credentials' back to `spyder` so `spyder-console` can connect auto-magically spinned `spyder-kernel`.
 
