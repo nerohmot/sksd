@@ -42,7 +42,7 @@ The tasks of **sksd** are:
 
 ## Specification
 
-`sksd` will most likely get his own `_sksd_` 'application environment'. Where ? Well a daemon is running as root, so forceably at the root level, which means ["administering a multi-user conda installation"](https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/admin-multi-user-install.html) 🎉🎉🎉 Beautiful! (Food for thought: The `_spyder_` application environment should probably also live at that admin level. 🤔)
+`sksd` will most likely get his own `_sksd_` 'application environment'. Where ? Well a daemon is running as root, so forceably at the root level, which means : ["administering a multi-user conda installation"](https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/admin-multi-user-install.html) 🎉🎉🎉 beautifull! (Food for thought: The `_spyder_` application environment should probably also live at that admin level. 🤔)
 
 So when a box boots, the `sksd` will be brought up automatically. The `sksd` then uses [zeroconf](https://github.com/jstasiak/python-zeroconf) (which is `noarch` package 👍👍👍) to announce it's presence to the zeroconf network, and thus to the world.
 
