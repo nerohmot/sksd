@@ -2,7 +2,7 @@
 <ins>**S**</ins>pyder <ins>**K**</ins>ernel <ins>**S**</ins>pinner <ins>**D**</ins>aemon
 
 
-# Preample
+## Preample
 
 Up to now there is some 'buttox pains' when it comes to:
 1. **Detecting what 'machines' are available in your network**, this is prior to 'connecting' to them, and currently not available.
@@ -14,7 +14,7 @@ Up to now there is some 'buttox pains' when it comes to:
   
 The goal of this initial proposal is to solve these issues transparantly!
 
-# Proposal
+## Proposal
 
 If we give `spyder` his own 'application environment', for example `_spyder_`, that holds whatever `spyder` (and it's plugins) need, even with very strong restrictions if so desired. Then `spyder` testing will become much more lightweight **and** focused on `spyder` itself!
 
@@ -33,35 +33,14 @@ Well, here we will not get around the creation of an 'omni-present' 'beacon' ...
 
 The tasks of **sksd** are:
 
-- Make himself be known to the 'world'. 👍
-- Spin up `spyder-kernel`(s) on behalf of a `user` in a specified `environment` from `spyder` and pass the 'connection data' back to `spyder`! 🎉
+- Make himself, his state and his 'capabilities' be known to the 'world'. 👍
+- Spin up `spyder-kernel`(s) on behalf of a `user` in a specified `environment` from `spyder` and pass the 'connection data' back to `spyder` so that the `spyder-console` can connect! 🎉
 - Serve as a `gateway` to administer environments remotely from `spyder` or possibly other tools in a graphical way! 😍
 
-
-
-
-
-
-
 **NOTE:**
-> A 'user daemon' (Contradictio in terminis) although much easier to implement as it is a simpel process with a user's login process (or one of it's ancestors) as parent, will not do the trick as it will **not** be 'omni-present'! One first needs to login to the box ... and how whould that work with a head-less device ?!?
+> A 'user daemon' (Contradictio in terminis) although much easier to implement, as it is a simpel process with a user's login process (or one of it's ancestors) as parent, will not do the trick as it will **not be 'omni-present'**! One first needs to login to the box ... and how whould that work with a truely head-less device ?!?
 
-
-
-would be the so called 'development environment'
-
-
-
-
-
-Now in doeing so, we 'create' a new problem : the `spyder-kernel` needs to be run in an environment other than `_spyder_` (unless we are coding for `spyder` that is). But as a matter of fact, that is a problem that needs solving anyway (cfr. 'remote machines')
-
-So, `spyder`
-
-
-
-
-# Description (Proposal)
+## Specification
 
 The `sksd` uses [zeroconf](https://github.com/jstasiak/python-zeroconf) to announce it's presence to the zeroconf network.
 
