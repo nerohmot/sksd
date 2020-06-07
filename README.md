@@ -42,32 +42,24 @@ The tasks of **sksd** are:
 
 ## Specification
 
-`sksd` will most likely get his own `_sksd_` 'application environment'. Where ? Well a daemon is running as root, so forceably at the root level, which means : ["administering a multi-user conda installation"](https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/admin-multi-user-install.html) 🎉🎉🎉 beautifull! (Food for thought: The `_spyder_` application environment should probably also live at that admin level. 🤔)
+`sksd` will most likely get his own `_sksd_` 'application environment'. Where ? Well a daemon is running as root, so forceably at the root level, which means : ["administering a multi-user conda installation"](https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/admin-multi-user-install.html) 🎉🎉🎉 beautifull! (Food for thought: The `_spyder_` application environment should probably also live at 'system level'. 🤔)
 
-So when a box boots, the `sksd` will be brought up automatically. The `sksd` then uses [zeroconf](https://github.com/jstasiak/python-zeroconf) (which is `noarch` package 👍👍👍) to announce it's presence to the zeroconf network, and thus to the world.
+So when a box boots, the `sksd` will be brought up automatically. It will find an unused [free port](https://github.com/nerohmot/spyder-kernels/blob/nerohmot/proposal/publish.py#L25)  (so no need for 'well known ports' shit)
+
+
+The `sksd` then uses [zeroconf](https://github.com/jstasiak/python-zeroconf) (which is `noarch` package 👍👍👍) to announce it's presence to the zeroconf network, and thus to the world.
 
 A `Spyder` instance can now easily 'discover' what machines are available (including his own machine 😂) by also using this zeroconf library.
 
 `Spyder` then can 'contact' the desired `sksd` (over TCP/IP [socket](https://docs.python.org/3/library/socket.html)s) and can:
 
-- Ask him to spin up a `spyder-kernel` as a `user` in a specific `conda environment`, and pass the needed 'credentials' back to `spyder` so `spyder-console` can connect auto-magically spinned `spyder-kernel`.
+- Ask him to spin up a `spyder-kernel` as a `user` in a specific `conda` `environment`, and pass the needed 'credentials' (read: the spyder-kernel's .json file) back to `spyder` so that the `spyder-console` can connect auto-magically to the spinned `spyder-kernel`.
 
 - Administer 
 
 
-## installation
-https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/admin-multi-user-install.html
 
-## modus operandi
-
-### sksd
-
-### Spyder
-
-This `sksd`, on startup will collect:
-
-  *
-  * [A free port](https://github.com/nerohmot/spyder-kernels/blob/nerohmot/proposal/publish.py#L25) (so no need for 'well known ports' shit)
+* [A free port](https://github.com/nerohmot/spyder-kernels/blob/nerohmot/proposal/publish.py#L25) (so no need for 'well known ports' shit)
   * the <ins>**host name**</ins> of the system (mind you, **not** the fully quantified one, no need for that either)
   ```python
   import socket
