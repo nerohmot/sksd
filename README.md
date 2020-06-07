@@ -18,14 +18,14 @@ The goal of this initial proposal is to solve these issues transparantly!
 
 If we give `spyder` his own 'application environment', for example `_spyder_`, that holds whatever `spyder` (and it's plugins) need, even with very strong restrictions if so desired. Then `spyder` testing will become much more lightweight **and** focused on `spyder` itself!
 
-As a consequence, `spyder` whould need to start the (local) `spyder-kernel` a bit differently with `conda run`:
+As a consequence, `spyder` whould need to start the (local) `spyder-kernel` a bit differently:
 ```sh
 conda run -n anaconda python -m spyder_kernels.console
 ```
-this way the spyder-kernel runs in the anaconda environment, and connects to the `spyder-console` which is running in the `_spyder_` environment. 😇
+This way the spyder-kernel runs in the anaconda environment, and connects to the `spyder-console` which is running in the `_spyder_` environment. 😇
 
 **NOTE:**
-> This way we don't loose any users by dropping Python2 support for `spyder` itself! The user is probably already programming in Python3, but he (or his company/organization) might have tools/libraries written for Python2, they work fine and just need small touch-up's from time to time. They will not accept that the IDE forces them to spend time/money to convert to Python3. 
+> This way we don't loose any users by dropping Python2 support for `spyder` itself! The user is probably already programming in Python3, but he (or his company/organization) might have tools/libraries written for Python2, they work fine and just need small touch-up's from time to time. It is **very unlikely** that they accept a Python3 overhaul of those tools just because of the IDE! 
 
 
 
