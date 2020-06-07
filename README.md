@@ -9,7 +9,7 @@ Up to now there is some 'buttox pains' when it comes to:
 2. **Connecting to remote spyder-kernels**, this is available, but it is very manual. (actually almost un-usable).
 3. **Environment(s)** ... `spyder` runs in the same environmnet as the environment we are coding for. This has the following consequences:
   - The app **needs** to conform to the `spyder` requirements. (not the packages themselves, but their restrictions (can) pose a problem)
-  - The app **needs** to conform to the rest of the environment. (eg `anaconda`, again not the packages but their restrictions make life hard)
+  - As if this is not enough, the app **needs** to conform to the rest of the environment **too**. (eg `anaconda`, again not the packages but their restrictions make life hard) ... Shouldn't it be the other way around in that the environment conforms to the application?!?
   - As `spyder` doesn't know up-front what his run-time environement will be, a lot of extra testing needs to be done, which doesn't help the 'time to market' **and** results in further package restrictions.
   
 The goal of this initial proposal is to solve these issues transparantly!
@@ -25,11 +25,25 @@ conda run -n anaconda python -m spyder_kernels.console
 This way the spyder-kernel runs in the anaconda environment, and connects to the `spyder-console` which is running in the `_spyder_` environment. 😎
 
 **NOTE:**
-> This way we don't loose any users by dropping Python2 support for `spyder` itself! The user is probably already programming in Python3, but he (or his company/organization) might have tools/libraries written for Python2, they work fine and just need small touch-up's from time to time. It is **very unlikely** that they accept a Python3 overhaul of those tools just because of the IDE! It **is very likely** that they will just switch IDE! 😱 Using this concept, they just need to run their tools in an apporpriate environment (which they already do in any case) 😇
+> This way we don't loose any users by dropping Python2 support for `spyder` itself! The user is probably already programming in Python3, but he (or his company/organization) might have tools/libraries written for Python2, they work fine and just need small touch-up's from time to time. It is **very unlikely** that they accept a Python3 overhaul of those tools just because of the IDE! It **is very likely** that they will just switch IDE! 😱 Using this concept however, they just need to run their tools in an apporpriate environment, which they already do in any case! 😇
 
-Fine, but how do we connect our `spyder` to a remote `spyder-kernel` running on a head-full or head-less box? 
+Nice, but how do we connect `spyder` to a <ins>**remote**</ins> `spyder-kernel` running on a **head-full** or even worse, a **head-less** box? 
 
-Well, here we will not get around the creation of an 'omni-present' 
+Well, here we will not get around the creation of an 'omni-present' 'beacon' ... let's call a cat a cat ... we need a **DAEMON**, and that is what **sksd** (<ins>**S**</ins>pyder <ins>**K**</ins>ernel <ins>**S**</ins>pinner **D**aemon) is all about.
+
+The tasks of **sksd** are:
+
+- Make himself box be known to the 'world'.
+- 
+
+
+
+
+
+
+
+**NOTE:**
+> A 'user daemon' (Contradictio in terminis) although much easier to implement as it is a simpel process with a user's login process as parent, will not do the trick as it will **not** be 'omni-present'! One first needs to login to the box ... and how will that work with a head-less device ?!?
 
 
 
