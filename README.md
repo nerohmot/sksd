@@ -51,36 +51,28 @@ A `Spyder` instance can now easily 'discover' what machines are available (inclu
 
 - Ask to spin up a `spyder-kernel` as a `user` in a specific `conda` `environment`, and pass the needed 'credentials' (read: the spyder-kernel's .json file) back to `spyder` so that the `spyder-console` can connect auto-magically to the spinned `spyder-kernel`.
 
-- Administer 
+- Administer a `user` environment. For this we can basically take Gonzalo's old work, split it into the GUI part that will transform as a `spyder5` plugin, and the part that runs the commands in a sub-process and returns the `json` answers, that part can be merged in sksd.
 
-
-
-There thus is a thin layer between the `spyder-kernelsd` and `conda` to manage the remote (but why not also the local-?) environments. The `spyder-kernels` themselves would probably be launched like this:
-```shell
-#!/usr/bin/env conda run -n desired-environment python -m spyder_kernels.console &
-```
-by the `spyder-kernelsd`.
-
-# Notes
-  1. Once spyder has his own `application environment`, we have the same 'control' over the local environments 😍 (Including the spyder application environmnet itself! think: plugin installation) without any additional work!
-  2. By starting `Spyder`, we make our machine also accessable for others ... not sure if this is (always) desirable ... maybe we need to foresee something to block that (probably in the settings of `Spyder`)
-  3. Above I didn't talk about the `password` for user `john`, but it is obvious we need then to obtain an encription key to exchange the password (that itself probably comes straight from the [keyring](https://github.com/jaraco/keyring)) ... probably something like [TLS 1.3](https://tools.ietf.org/pdf/rfc8446.pdf#page=96) 😈 python standard [ssl](https://docs.python.org/3/library/ssl.html) library already has this implemented. And, oh, yes, the certificate (or rather the pointer to the CA) will probably live in the `spyder-kernelsd.conf` file. 😎
+## Notes
   4. The `hostname` above is usefull, but now always meaningfull (think server farms) it is probably a good idea that in the `spyder-kernelsd.conf` file there is also a 'pretty host name' like : `John's Raspberry Pi` or `Tom's MiniSCT` 🤓
   5. Also the `guest` account thingy probably lives in `spyder-kernelsd.conf`
 
-## Licensing
+### Licensing
 
 We relay on the `noarch` [zeroconf](https://github.com/jstasiak/python-zeroconf) package which is licensed under [LGPLv2.1](https://github.com/jstasiak/python-zeroconf/blob/master/COPYING). Given the fact that I had in mind to conform to `spyder-ide` licencing philosophy, thus choose `MIT` I am not sure if this would be a problem or not ...
 
 After all, we just use the library, it is thus not 'defived work' or so ... IMHO there is no problem, but someone with more knowledge should maybe have a look at the situation before release.
 
-## Cross-platform 'daemon' implementation
+### Cross-platform 'daemon' implementation
 
 There is some fundamental differences in how `daemons` are constructed in Linux/Windows/MacOS ...
 
 Maybe [daemoniker](https://daemoniker.readthedocs.io/en/latest/) (or similar) can help there, but for the moment (proof of concept) we'll limit ourselves to Linux, and use 'well-behaved' daemons according to Stevens.
 
-## Dependencies and their implications
+### Security
+I didn't talk about the `user` `password`, but it is obvious we need then to obtain an encription key to exchange the password (that itself probably comes straight from the [keyring](https://github.com/jaraco/keyring)) ... probably something like [TLS 1.3](https://tools.ietf.org/pdf/rfc8446.pdf#page=96) will be used (both the python standard [ssl](https://docs.python.org/3/library/ssl.html) library and [wolfssl](https://github.com/wolfSSL/wolfssl) already implement TLS1.3). And, oh, yes, the certificate (or rather the pointer to the CA) will probably live in the `sksd.conf` file. 😎
+
+### Dependencies and their implications
 
   * Old situation:
     Spyder ➜ spyder-kernels
@@ -91,5 +83,6 @@ Maybe [daemoniker](https://daemoniker.readthedocs.io/en/latest/) (or similar) ca
 
 ... needs to be worked out better ...
 
-## Conda environments
+### sksd.conf
 
+We need to start the `sksd` config file with ``
