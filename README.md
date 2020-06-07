@@ -42,14 +42,18 @@ The tasks of **sksd** are:
 
 ## Specification
 
-`sksd` will most likely get his own `_sksd_` 'application environment'. Where ? Well a daemon is running as root, so at the root level, which means [xxx](https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/admin-multi-user-install.html
-)  
+`sksd` will most likely get his own `_sksd_` 'application environment'. Where ? Well a daemon is running as root, so at the root level, which means [administering a multi-user conda installation](https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/admin-multi-user-install.html). Fine, the `_spyder_` application environment should probably also live at that admin level. 🤔
 
 The `sksd` uses [zeroconf](https://github.com/jstasiak/python-zeroconf) (which is `noarch` 👍) to announce it's presence to the zeroconf network, and thus to the world.
 
-`Spyder` can now easily 'discover' what machines are available (by also using this zeroconf library).
+`Spyder` can now easily 'discover' what machines are available by also using this zeroconf library.
 
-`Spyder` then 'contact' the desired `sksd` and ask him to spin up a `spyder-kernel` as a `user` in a specific `conda environment`, and pass the needed 'credentials' back to `spyder` so `spyder` can connect auto-magically connect to the spinned spyder-kernel.
+`Spyder` then 'contact' the desired `sksd` ([socket](https://docs.python.org/3/library/socket.html)) and can:
+
+- Ask him to spin up a `spyder-kernel` as a `user` in a specific `conda environment`, and pass the needed 'credentials' back to `spyder` so `spyder` can connect auto-magically connect to the spinned spyder-kernel.
+
+- administer
+
 
 ## installation
 https://docs.conda.io/projects/conda/en/latest/user-guide/configuration/admin-multi-user-install.html
