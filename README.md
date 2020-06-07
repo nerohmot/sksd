@@ -33,8 +33,9 @@ Well, here we will not get around the creation of an 'omni-present' 'beacon' ...
 
 The tasks of **sksd** are:
 
-- Make himself box be known to the 'world'.
-- 
+- Make himself be known to the 'world'. 👍
+- Spin up `spyder-kernel`(s) on behalf of a `user` in a specified `environment` from `spyder` and pass the 'connection data' back to `spyder`! 🎉
+- Serve as a `gateway` to administer environments remotely from `spyder` or possibly other tools in a graphical way! 😍
 
 
 
@@ -43,7 +44,7 @@ The tasks of **sksd** are:
 
 
 **NOTE:**
-> A 'user daemon' (Contradictio in terminis) although much easier to implement as it is a simpel process with a user's login process as parent, will not do the trick as it will **not** be 'omni-present'! One first needs to login to the box ... and how will that work with a head-less device ?!?
+> A 'user daemon' (Contradictio in terminis) although much easier to implement as it is a simpel process with a user's login process (or one of it's ancestors) as parent, will not do the trick as it will **not** be 'omni-present'! One first needs to login to the box ... and how whould that work with a head-less device ?!?
 
 
 
