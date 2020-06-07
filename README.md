@@ -10,11 +10,41 @@ Up to now there is some 'buttox pains' when it comes to:
 3. **Environment(s)** ... `spyder` runs in the same environmnet as the environment we are coding for. This has the following consequences:
   - The app **needs** to conform to the `spyder` requirements. (not the packages themselves, but their restrictions (can) pose a problem)
   - The app **needs** to conform to the rest of the environment. (eg `anaconda`, again not the packages but their restrictions make life hard)
-  - As `spyder` doesn't know up-front what his run-time environement will be, a lot of extra testing needs to be done, which doesn't help the 'time to market', **and** results in further package restrictions.
+  - As `spyder` doesn't know up-front what his run-time environement will be, a lot of extra testing needs to be done, which doesn't help the 'time to market' **and** results in further package restrictions.
   
 The goal of this initial proposal is to solve these issues transparantly!
 
-# Foundation
+# Proposal
+
+If we give `spyder` his own 'application environment', for example `_spyder_`, that holds whatever `spyder` (and it's plugins) need, even with very strong restrictions if so desired. Then `spyder` testing will become much more lightweight **and** focused on `spyder` itself!
+
+As a consequence, `spyder` whould need to start the (local) `spyder-kernel` a bit differently with `conda run`:
+```sh
+conda run -n anaconda python -m spyder_kernels.console
+```
+this way the spyder-kernel runs in the anaconda environment, and connects to the `spyder-console` which is running in the `_spyder_` environment. 😇
+
+--
+**NOTE**
+
+This way solved already a latent issue related to dropping support for python2!
+
+---
+
+
+
+
+
+would be the so called 'development environment'
+
+
+
+
+
+Now in doeing so, we 'create' a new problem : the `spyder-kernel` needs to be run in an environment other than `_spyder_` (unless we are coding for `spyder` that is). But as a matter of fact, that is a problem that needs solving anyway (cfr. 'remote machines')
+
+So, `spyder`
+
 
 
 
