@@ -54,8 +54,6 @@ A `Spyder` instance can now easily 'discover' what machines are available (inclu
 - Administer a `user` environment. For this we can basically take Gonzalo's old work, split it into the GUI part that will transform as a `spyder5` plugin, and the part that runs the commands in a sub-process and returns the `json` answers, that part can be merged in sksd.
 
 ## Notes
-  4. The `hostname` above is usefull, but now always meaningfull (think server farms) it is probably a good idea that in the `spyder-kernelsd.conf` file there is also a 'pretty host name' like : `John's Raspberry Pi` or `Tom's MiniSCT` 🤓
-  5. Also the `guest` account thingy probably lives in `spyder-kernelsd.conf`
 
 ### Licensing
 
@@ -70,19 +68,34 @@ There is some fundamental differences in how `daemons` are constructed in Linux/
 Maybe [daemoniker](https://daemoniker.readthedocs.io/en/latest/) (or similar) can help there, but for the moment (proof of concept) we'll limit ourselves to Linux, and use 'well-behaved' daemons according to Stevens.
 
 ### Security
-I didn't talk about the `user` `password`, but it is obvious we need then to obtain an encription key to exchange the password (that itself probably comes straight from the [keyring](https://github.com/jaraco/keyring)) ... probably something like [TLS 1.3](https://tools.ietf.org/pdf/rfc8446.pdf#page=96) will be used (both the python standard [ssl](https://docs.python.org/3/library/ssl.html) library and [wolfssl](https://github.com/wolfSSL/wolfssl) already implement TLS1.3). And, oh, yes, the certificate (or rather the pointer to the CA) will probably live in the `sksd.conf` file. 😎
+
+I didn't talk about the `user` `password`, but it is obvious we need to obtain an encription key to exchange the password (that itself probably comes straight from the [keyring](https://github.com/jaraco/keyring)) ... probably something like [TLS 1.3](https://tools.ietf.org/pdf/rfc8446.pdf#page=96) will be used (both the python standard [ssl](https://docs.python.org/3/library/ssl.html) library and [wolfssl](https://github.com/wolfSSL/wolfssl) already implement TLS1.3). And, oh, yes, the certificate (or rather the pointer to the CA) will probably live in the `sksd.conf` file. 😎
 
 ### Dependencies and their implications
 
   * Old situation:
-    Spyder ➜ spyder-kernels
+    `spyder` ➜ `spyder-kernels`
   
   * New situation:
-    Spyder
-    sksd ➜ spyder-kernels
-
-... needs to be worked out better ...
+    `Spyder` ➜ `sksd`
+    `spyder-kernels` need to be located in the environment!
 
 ### sksd.conf
 
-We need to start the `sksd` config file with ``
+The `sksd` config file is to be UTF-8 encoded, this way we can publish very nice machine names (mind you **not** the hostname, that one is shared in any case) like for example:
+
+- "Gonzalo Peña-Castellanos' RPi"
+- "Tom Hören's MiniSCT"
+- ...
+
+We need to start the `sksd` config file with `# -*- coding: utf-8 -*-`, this way also the editors should understand that.
+
+### Conda Channels
+
+Note, that eventhough `spyder` can still be part of a standard `anaconda` installation, it no longer is bound to the `anaconda` channel only! Also `conda-forge` and `pip` come into scope now! 😍 (hint for the whole Qt stuff)
+
+PS: the 'administring' part also should include adding/removing/re-arranging channels !
+
+### Open issues
+- what about kite ?
+- `spyder-kernels` does (as I understand) accept a python module to be run (remotely), however what about a package? 
