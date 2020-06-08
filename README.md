@@ -83,10 +83,16 @@ I didn't talk about the `user` `password`, but it is obvious we need to obtain a
 
 ### Spyder installer
 
-...
+Question is if the installer needs to be 'graphical' ... 
 
+In any case, the installer for spyder should be based on [minifoge](https://github.com/conda-forge/miniforge), however we might need to talk to Ilan to see what it takes to also add 'Windows' to the installer list. Then it is a matter of `conda install -c spyder-ide spyder` 
 
+... need some input from Carlos to understand how he sees this ...
 
+### sksd concurency
+
+We don't need to make the sksd 'concurrent' (read: able to talk to multiple `spyder` instances at the same time).
+`sksd` publishes (actually 'updates') his state to the world, so when a `spyder` instance connects to the `sksd`, `sksd` will let the word know that he is bussy. We can do so, because the connections are short lived anyway.
 
 ### sksd.conf
 
@@ -105,5 +111,5 @@ Note, that eventhough `spyder` can still be part of a standard `anaconda` instal
 PS: the 'administring' part also should include adding/removing/re-arranging channels !
 
 ### Open issues
-- what about kite ?
+- what about kite ? (where does it run? local or remote?)
 - `spyder-kernels` does (as I understand) accept a python module to be run (remotely), however what about a package? 
