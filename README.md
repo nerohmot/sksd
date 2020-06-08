@@ -73,13 +73,16 @@ I didn't talk about the `user` `password`, but it is obvious we need to obtain a
 
 ### Dependencies and their implications
 
-  * Old situation:
-    `spyder` ➜ `spyder-kernels`
+ - Old situation:
+   - `spyder` ➜ `spyder-kernels`
   
-  * New situation: no more **package** dependencies !
-    `Spyder`
-    `sksd` 
-    `spyder-kernels` (need to be located in the environment!)
+ - New situation: no more **package** dependencies !
+   - `Spyder`
+   - `sksd` 
+   - `spyder-kernels` (need to be located in the environment!)
+
+
+... needs some more 'working out' ...
 
 ### Spyder installer
 
