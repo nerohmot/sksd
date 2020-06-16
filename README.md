@@ -113,15 +113,15 @@ Note, that eventhough `spyder` can still be part of a standard `anaconda` instal
 
 PS: the 'administring' part also should include adding/removing/re-arranging channels !
 
-# Kite 
+### Kite 
 
 No issue, kite should install as it does now, running on the provided code base pointed to by Spyder.
 
-# pysyntect
+### pysyntect
 
 No issue, should be part of the `_spyder_` application environment.
 
-### Open issues
+### Remaining open issues
 - `spyder-kernels` does (as I understand) accept a python module to be run (remotely), however what about a package? 
 
 ➜ Carlos is going to talk about this with the Jupyter guys, if nothing is available at that side, Carlos thinks that adding something for packages in spyder-kernels is not undoable. Feedback to come.
