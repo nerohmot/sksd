@@ -46,7 +46,7 @@ class PublishKernelsWizard(QtWidgets.QDialog):
 
     def get_configuration(self):
         """This methode grabs the configuration from the UI and returns it as a ServiceInfo object."""
-        service = "_skd._tcp.local."
+        service = "_sksd._tcp.local."
 
         if serviceName.text() == '':
             service_name = hostName.text()

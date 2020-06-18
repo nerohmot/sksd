@@ -54,7 +54,6 @@ class SpyderListener:
             for nic in my_interfaces[interface]:
                 if nic.family in [socket.AF_INET, socket.AF_INET6]:
                     my_addresses[nic.address] = interface
-
         for host in self.hosts:
             if len(self.hosts[host].addresses) != 1:
                 raise Exception(f"Yup, not yet implemented ... {self.hosts[host]}")
@@ -69,7 +68,6 @@ class SpyderListener:
 if __name__ == '__main__':
     zeroconf = Zeroconf()
     spyderListener = SpyderListener()
-    browser = ServiceBrowser(zeroconf, "_skd._tcp.local.", spyderListener)
     try:
         while True:
             key = input(">>>")

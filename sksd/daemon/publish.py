@@ -3,7 +3,7 @@
 """
 Created on Wed May 27 10:47:05 2020
 
-@author: tom
+@author: nerohmot
 """
 
 import os
@@ -32,7 +32,7 @@ def find_free_port():
 
 def get_configuration():
     """This function creates a zeroconf.ServiceInfo object from the configuration file."""
-    service = "_skd._tcp.local."
+    service = "_sksd._tcp.local."
     retval = ServiceInfo(
         service,
         f"{name}.{service}"
@@ -54,12 +54,11 @@ def get_configuration():
 #     zeroconf.update_service(info)
 
 
-def create_info(name, addresses, port, desc=[], service="_skd._tcp.local."):
+def create_info(name, addresses, port, desc=[], service="_sksd._tcp.local."):
     return ServiceInfo(
         service,
         f"{name}.{service}",
         addresses=[socket.inet_aton("127.0.0.1")],  # ?!?
-        port=port,
         properties=desc,
         server=socket.gethostname(),
     )

@@ -14,7 +14,7 @@ Created on Mon Jan 20 12:51:04 2020
 
     references :
         https://dpbl.wordpress.com/2017/02/12/a-tutorial-on-python-daemon/
-
+        https://serverfault.com/questions/417892/how-to-find-the-pid-file-for-a-given-process
 """
 
 import sys
@@ -39,21 +39,68 @@ class daemon_ABC(ABC):
     verbose = True
     enabled = True
 
-    def __init__(self, config_dir):
+    def __init__(self, config_dir=None):
 
-        self.config_dir = config_dir
-
-        self.name = self.__class__.__name__
+        # name
+        self.name = self.__class__.__name__.lower()
         if self.verbose:
-            print(f"daemon name = '{name}'")
-            if platform.system() != "Windows":
-                print(f"euid = '{os.geteuid()}'")  # not for windows !
-                print(f"uid = '{os.getuid()}'")  # not for windows !
+            print(f"daemon name = '{self.name}'")
 
-        if not os.path.exists(config_dir):
+        # os & id's
+        self.OS = platform.system()
+        if self.OS == "Windows":
+            self.euid = "?"
+            self.uid = "?"
+        elif self.OS in ["Linux", "Darwin"]:
+            self.euid = os.geteuid()
+            self.uid = os.getuid()
+        else:
+            raise Exception("Unknown OS : '{self.OS}'")
+        if self.verbose:
+            print(f"Operating System = '{self.OS}'")
+            print(f"euid = '{self.euid}'")
+            print(f"uid = '{self.uid}'")
+
+        # configuration
+        if config_dir is None:  # set automatically based on self.OS
+            if self.OS == "Windows":
+                self.config_dir = "?"
+            elif self.OS == "Linux":
+                self.config_dir = "/etc"
+            elif self.OS == "Darwin":
+                self.config_dir = "/etc"
+        else:
+            self.config_dir = config_dir
+        self.config_file = os.path.join(self.config_dir, f"{self.name}.conf")
+        if self.verbose:
+            print(f"Config dir = '{self.config_dir}'")
+            print(f"Config file = '{os.path.basename(self.config_file)}'")
+        if not os.path.exists(self.config_dir):
             raise Exception(f"'{config_dir}' does not exist (or is not accessable)!")
+        if not os.path.exists(self.config_file):
+            if self.verbose:
+                print("writing config file ... ", end="")
+            self.write_default_config_file(self.config_file)
+            if self.verbose:
+                print("Done")
 
-        self.pid_file = os.path.join(config_dir, f"{name}.pid")
+
+
+
+
+
+
+
+
+        if self.verbose:
+            print(f"Configuration file = '{self.config_dir}'")
+
+
+
+
+
+
+        self.pid_file = os.path.join(config_dir, f"{self.name}.pid")
         if self.verbose:
             print(f"pid-file = '{self.pid_file}'")
         # TODO: if the pid file exists, open it, look what process did write it, and
@@ -71,12 +118,13 @@ class daemon_ABC(ABC):
             if self.verbose:
                 print("Done.")
 
-
+    @abstractmethod
+    def write_default_config_file(self, path):
+        pass
 
     def __del__(self):
         if os.path.exists(self.pid_file):
             os.remove(self.pid_file)
-
 
     def daemonize(self):
         try:

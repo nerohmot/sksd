@@ -68,7 +68,7 @@ from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf, ServiceInfo, 
 # service.publish()
 
 
-def find_spyder_kernels_daemons(service='_skd._tcp.local.', timeout=10):
+def find_spyder_kernels_daemons(service='_sksd._tcp.local.', timeout=10):
     """This function will collect all 'service'-es from the zeroconf network in 'timeout' seconds.
 
     Parameters

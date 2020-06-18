@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
     zeroconf = Zeroconf()
     spyderListener = SpyderListener()
-    browser = ServiceBrowser(zeroconf, "_skd._tcp.local.", spyderListener)
+    browser = ServiceBrowser(zeroconf, "_sksd._tcp.local.", spyderListener)
 
     time.sleep(3)  # give the browser some time to discover
 
