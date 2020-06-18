@@ -87,9 +87,9 @@ class SKSD:
             else:
                 raise Exception(f"Unknown OS : '{self.OS}'")
         if not os.path.exists(self.config_dir):
-            raise Exception("Configuration directory '{self.config_dir}' does not exist")
+            raise Exception(f"Configuration directory '{self.config_dir}' does not exist")
         if not os.path.exists(self.pid_dir):
-            raise Exception("PID directory '{self.pid_dir}' does not exist")
+            raise Exception(f"PID directory '{self.pid_dir}' does not exist")
         if self.verbose:
             print(f"Operating System = '{self.OS}'")
             print(f"Configuration Directory = '{self.config_dir}'")
