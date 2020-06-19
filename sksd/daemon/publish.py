@@ -67,17 +67,13 @@ def create_info(name, addresses, port, desc=[], service="_sksd._tcp.local."):
 if __name__ == '__main__':
     zeroconf = Zeroconf(ip_version=IPVersion.All)
 
-    port = find_free_port()
-    addresses = []
-    desc = {}
+    info = ServiceInfo("Tom's MiniSCT",)
 
 
-
-
-    info = create_info("Tom's MiniSCT")
+    info = create_info("Tom's MiniSCT", addresses, port)
 
     print("registering ...")
     zeroconf.register_service(info)
-    time.sleep(5)
+    time.sleep(60)
     print("unregistering ...")
     zeroconf.unregister_service(info)
